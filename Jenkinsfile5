@@ -1,0 +1,28 @@
+pipeline {
+    agent any
+    stages {
+        /* "Build" and "Test" stages omitted */
+
+        stage('Deploy - Staging') {
+            steps {
+                sh './deploy staging'
+                sh './run-smoke-tests'
+            }
+        }
+
+        stage('Sanity check') {
+            steps {
+                input "Does the staging environment look ok?"
+            }
+        }
+
+        stage('Deploy - Production') {
+            steps {
+                sh './deploy production'
+            }
+        }
+    }
+}
+
+# This pipeline is for human input before proceeding
+# Literally, someone has to type something for the process to move forward (e.g. input '..')

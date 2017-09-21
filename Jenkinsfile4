@@ -1,0 +1,20 @@
+pipeline {
+    agent any
+    stage('Deploy - Staging') {
+        steps {
+            sh './deploy staging'
+            sh './run-smoke-tests'
+        }
+    }
+    stage('Deploy - Production') {
+        steps {
+            sh './deploy production'
+        }
+    }
+}
+
+# This pipeline style is good for validating prior to releasing to production..
+# ./run-smoke-tests, is the final boss to our production release
+
+## This is an example of Continuous Deployment, since the code goes from staging
+## straight into production

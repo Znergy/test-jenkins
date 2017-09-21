@@ -1,0 +1,14 @@
+node {
+    currentBuild.fullDisplayName = "RetroDeploy 2.0"
+
+    stage('build') {
+        if(env.NODE_ENV === 'test') {
+            echo 'building for the test environment'
+        } else if(env.NODE_ENV === 'dev') {
+            echo 'building for the dev environment'
+        } else if(env.NODE_ENV === 'prod') {
+            echo 'building for the prod environment'
+            echo 'Current build name: ${currentBuild.fullDisplayName}'
+        }
+    }
+}
